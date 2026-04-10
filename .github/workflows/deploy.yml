@@ -3,7 +3,7 @@ name: Deploy to EC2
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
@@ -22,7 +22,7 @@ jobs:
       - name: Deploy
         run: |
           ssh -i ~/.ssh/private_key ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} '
-            cd /home/ec2-user/YOUR_FOLDER_NAME &&
-            git pull origin main &&
+            cd /var/www/html/dev &&
+            git pull origin master &&
             sudo systemctl restart httpd || sudo systemctl restart apache2 || true
           '
